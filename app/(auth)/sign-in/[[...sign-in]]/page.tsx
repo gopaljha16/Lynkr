@@ -10,7 +10,20 @@ export default function Page() {
           create one.
         </p>
         <div>
-          <SignIn/>
+          <SignIn
+            appearance={{
+              elements: {
+                formButtonPrimary: "bg-blue-600 hover:bg-blue-700 text-white",
+                card: "shadow-lg rounded-xl p-6 bg-gray-900 text-white",
+                headerTitle: "text-2xl font-bold",
+                headerSubtitle: "text-sm text-gray-400",
+                socialButtonsBlockButton: "bg-gray-800 text-white rounded-lg",
+              },
+              layout: {
+                socialButtonsPlacement: "bottom",
+              },
+            }}
+          />
         </div>
       </div>
     </>
