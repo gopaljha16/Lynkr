@@ -1,11 +1,15 @@
 import React from "react";
-import { onBoardUser } from "../modules/auth/actions";
+import { onBoardUser } from "@/modules/auth/actions";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import ClaimLinkForm from "../modules/home/components/claim-link-from";
+import ClaimLinkForm from "@/modules/home/components/claim-link-from";
+import { getCurrentUserName } from "@/modules/profile/actions";
 
 const Homepage = async () => {
-  await onBoardUser();
+  const user = await onBoardUser();
+  const profile = await getCurrentUserName();
+  console.log(profile);
+
   return (
     <div className="min-h-screen">
       <main className="flex flex-col max-w-4xl mx-auto px-6">
@@ -26,14 +30,16 @@ const Homepage = async () => {
           </div>
 
           <div className="pt-4">
-            <Link href="/admin/my-tree">
-              <Button
-                size="lg"
-                className="px-8 py-3 text-lg font-medium cursor-pointer"
-              >
-                Lynkr Dashboard
-              </Button>
-            </Link>
+            {user.success && profile?.username && (
+              <Link href="/admin/my-tree">
+                <Button
+                  size="lg"
+                  className="px-8 py-3 text-lg font-medium cursor-pointer"
+                >
+                  Lynkr Dashboard
+                </Button>
+              </Link>
+            )}
           </div>
         </section>
 
