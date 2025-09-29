@@ -103,18 +103,18 @@ return {
 }
 }
 
-// export const getUserByUsername = async (username:string)=>{
+export const getUserByUsername = async (username:string)=>{
 
-//   const currentUsername = await db.user.findUnique({
-//     where:{
-//       username:username
-//     },
-//    include:{
+  const currentUsername = await db.user.findUnique({
+    where:{
+      username:username
+    },
+   include:{
     
-//     links:true,
-//     socialLinks:true
-//    }
+    links:true,
+    socialLinks:true
+   }
    
-//   })
-//   return currentUsername;
-// }
+  })
+  return currentUsername;
+}
