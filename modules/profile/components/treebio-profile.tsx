@@ -111,8 +111,6 @@ const TreeBioProfile = ({ profileData }: TreeBioProfileProps) => {
 
     try {
       await logLinkClick(linkId);
-
-
       setLinkClicks(prev => ({
         ...prev,
         [linkId]: (prev[linkId] || 0) + 1
