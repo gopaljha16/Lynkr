@@ -18,7 +18,7 @@ const Page = async ({ params }: { params: Promise<{ username: string }> }) => {
   });
 
   return (
-    // @ts-ignore
+    // @ts-expect-error - Type mismatch expected, will be fixed in future refactor
     <TreeBioProfile profileData={profileData} />
   )
 }

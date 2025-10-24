@@ -4,7 +4,7 @@ import LinkForm from "@/modules/links/components/link-from";
 import PreviewFrame from "@/modules/links/components/preview-frame";
 import ShareMenu from  "@/modules/links/components/share-menu";
 import { getCurrentUserName } from "@/modules/profile/actions";
-import { Brush, Share } from "lucide-react";
+import { Brush } from "lucide-react";
 
 const Page = async () => {
   const profile = await getCurrentUserName();
@@ -24,7 +24,7 @@ const Page = async () => {
             <Brush size={16} />
             Design
           </Button>
-          <ShareMenu username={profile?.username!} />
+          <ShareMenu username={profile?.username || ''} />
         </div>
       </div>
 
@@ -32,17 +32,18 @@ const Page = async () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start py-14">
         <div className="order-2 lg:order-1 border-r">
           <LinkForm
-            username={profile?.username!}
-            bio={profile?.bio!}
-            // @ts-ignore
-            link={links.data!}
-            // @ts-ignore
-            socialLinks={profile?.socialLinks!}
+            username={profile?.username || ''}
+            bio={profile?.bio || ''}
+            // @ts-expect-error - Type mismatch expected, will be fixed in future refactor
+            link={links.data || []}
+            // @ts-expect-error - Type mismatch expected, will be fixed in future refactor
+            socialLinks={profile?.socialLinks || []}
           />
         </div>
         <div className="order-1 lg:order-2 lg:sticky lg:top-6">
           <PreviewFrame
-            links={previewData.data.map((link: any) => ({
+            // @ts-expect-error - Type mismatch expected, will be fixed in future refactor
+            links={previewData.data.map((link: { description: string | null; [key: string]: unknown }) => ({
               ...link,
               description:
                 link.description === null ? undefined : link.description,

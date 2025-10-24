@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
   try {
     // Validate URL
     new URL(url);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
   }
 
@@ -124,8 +124,8 @@ export async function GET(request: NextRequest) {
     }
 
     return NextResponse.json(ogData);
-  } catch (error) {
-    console.error("Error fetching OG data:", error);
+  } catch (fetchError) {
+    console.error("Error fetching OG data:", fetchError);
     return NextResponse.json(
       { error: "Failed to fetch Open Graph data" },
       { status: 500 }

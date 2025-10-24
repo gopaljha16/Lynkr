@@ -12,7 +12,6 @@ import {
   Linkedin,
   Globe,
   ExternalLink,
-  Share,
   Star,
   Sun,
   Moon,
@@ -223,8 +222,8 @@ const TreeBioProfile = ({ profileData }: TreeBioProfileProps) => {
                     : "bg-gray-200 text-gray-800"
                     }`}
                 >
-                  {profileData.firstName[0]}
-                  {profileData.lastName[0]}
+                  {profileData.firstName?.[0] || ''}
+                  {profileData.lastName?.[0] || ''}
                 </AvatarFallback>
               </Avatar>
               <div
@@ -240,19 +239,19 @@ const TreeBioProfile = ({ profileData }: TreeBioProfileProps) => {
                 className={`text-3xl font-bold tracking-tight transition-colors duration-300 ${theme === "dark" ? "text-zinc-100" : "text-gray-900"
                   }`}
               >
-                {profileData.firstName} {profileData.lastName}
+                {profileData.firstName || ''} {profileData.lastName || ''}
               </h1>
               <p
                 className={`text-lg font-medium transition-colors duration-300 ${theme === "dark" ? "text-zinc-400" : "text-gray-600"
                   }`}
               >
-                @{profileData.username}
+                @{profileData.username || ''}
               </p>
               <p
                 className={`text-base leading-relaxed max-w-sm mx-auto transition-colors duration-300 ${theme === "dark" ? "text-zinc-300" : "text-gray-700"
                   }`}
               >
-                {profileData.bio}
+                {profileData.bio || ''}
               </p>
             </div>
           </div>
@@ -263,7 +262,7 @@ const TreeBioProfile = ({ profileData }: TreeBioProfileProps) => {
               <Button
                 key={link.id}
                 asChild
-                onClick={(event) => handleLinkClick(link.id, link.url, event)}
+                onClick={() => handleLinkClick(link.id)}
                 variant="outline"
                 className={`w-full h-14 text-base font-medium backdrop-blur-sm transition-all duration-200 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] group ${theme === "dark"
                   ? "border-zinc-600/40 bg-zinc-700/40 text-zinc-100 hover:bg-zinc-600/60 hover:border-zinc-500/60"
@@ -339,7 +338,7 @@ const TreeBioProfile = ({ profileData }: TreeBioProfileProps) => {
             >
               <img src="logo.png" alt="Lynkr" className="h-10 w-10 mr-2" />
               <span className="group-hover:scale-105 transition-transform duration-200 flex-1 text-center">
-                Join {profileData.username} on Lynkr
+                Join {profileData.username || 'user'} on Lynkr
               </span>
               <Star className="h-4 w-4 ml-2 group-hover:text-yellow-400 transition-colors duration-200" />
             </Button>
