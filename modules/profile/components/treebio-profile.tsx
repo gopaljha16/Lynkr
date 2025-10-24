@@ -47,19 +47,19 @@ interface ProfileData {
   id: string;
   clerkId: string;
   email: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-  imageUrl: string;
-  bio: string;
+  username: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  imageUrl: string | null;
+  bio: string | null;
   createdAt: Date;
-  updatedAt:  Date;
+  updatedAt: Date;
   links: LinkItem[];
   socialLinks: SocialLinkItem[];
 }
 
 interface TreeBioProfileProps {
-  profileData: ProfileData;
+  profileData: ProfileData | null;
 }
 
 const getSocialIcon = (platform: string) => {
