@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,6 +19,7 @@ import {
   Check,
   ExternalLink,
   Copy,
+  Globe,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
@@ -42,6 +43,7 @@ export default function SettingsForm({ user }: SettingsFormProps) {
   const { theme, setTheme } = useTheme();
   const [isSaving, setIsSaving] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [origin, setOrigin] = useState("");
   const [formData, setFormData] = useState({
     firstName: user.firstName || "",
     lastName: user.lastName || "",
@@ -54,8 +56,18 @@ export default function SettingsForm({ user }: SettingsFormProps) {
     weeklyReport: false,
   });
 
-  const origin = typeof window !== "undefined" ? window.location.origin : "";
+  // Get the current origin (works for localhost and production)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
+
   const profileUrl = `${origin}/${user.username}`;
+  const displayOrigin = origin
+    .replace("https://", "")
+    .replace("http://", "");
+  const isProduction = origin.includes("vercel.app") || (!origin.includes("localhost") && !origin.includes("127.0.0.1"));
 
   const handleSave = async () => {
     setIsSaving(true);
@@ -259,15 +271,56 @@ export default function SettingsForm({ user }: SettingsFormProps) {
             : "bg-white border-gray-200"
         }`}
       >
-        <div className="flex items-center gap-3 mb-4">
-          <ExternalLink
-            className={`w-5 h-5 ${theme === "dark" ? "text-blue-400" : "text-blue-600"}`}
-          />
-          <h2
-            className={`text-lg font-semibold ${theme === "dark" ? "text-white" : "text-gray-900"}`}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <ExternalLink
+              className={`w-5 h-5 ${theme === "dark" ? "text-blue-400" : "text-blue-600"}`}
+            />
+            <h2
+              className={`text-lg font-semibold ${theme === "dark" ? "text-white" : "text-gray-900"}`}
+            >
+              Your Lynkr Profile
+            </h2>
+          </div>
+          <span
+            className={`text-xs px-3 py-1 rounded-full flex items-center gap-1.5 ${
+              isProduction
+                ? "bg-green-500/10 text-green-500"
+                : "bg-yellow-500/10 text-yellow-500"
+            }`}
           >
-            Your Lynkr Profile
-          </h2>
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                isProduction ? "bg-green-500" : "bg-yellow-500"
+              }`}
+            />
+            {isProduction ? "Production" : "Development"}
+          </span>
+        </div>
+
+        {/* Domain Info */}
+        <div
+          className={`mb-4 p-3 rounded-xl flex items-center gap-3 ${
+            theme === "dark"
+              ? "bg-zinc-800/50 border border-zinc-700/50"
+              : "bg-gray-50 border border-gray-200"
+          }`}
+        >
+          <Globe
+            className={`w-4 h-4 ${theme === "dark" ? "text-zinc-400" : "text-gray-500"}`}
+          />
+          <div className="flex-1">
+            <p
+              className={`text-xs ${theme === "dark" ? "text-zinc-500" : "text-gray-500"}`}
+            >
+              Current Domain
+            </p>
+            <p
+              className={`text-sm font-medium ${theme === "dark" ? "text-zinc-200" : "text-gray-700"}`}
+            >
+              {displayOrigin || "Loading..."}
+            </p>
+          </div>
         </div>
 
         <div className="flex items-center gap-3">
@@ -278,11 +331,12 @@ export default function SettingsForm({ user }: SettingsFormProps) {
                 : "bg-gray-100 text-blue-600"
             }`}
           >
-            {profileUrl}
+            {origin ? profileUrl : "Loading..."}
           </div>
           <Button
             variant="outline"
             onClick={handleCopyLink}
+            disabled={!origin}
             className={`h-11 px-4 rounded-xl ${
               theme === "dark"
                 ? "border-zinc-700 hover:bg-zinc-800"
@@ -305,6 +359,14 @@ export default function SettingsForm({ user }: SettingsFormProps) {
             </a>
           </Button>
         </div>
+
+        <p
+          className={`text-xs mt-3 ${theme === "dark" ? "text-zinc-500" : "text-gray-500"}`}
+        >
+          {isProduction
+            ? "✓ Your profile is live and accessible to everyone"
+            : "⚠ You're in development mode. Deploy to get your production URL."}
+        </p>
       </Card>
 
       {/* Appearance */}
