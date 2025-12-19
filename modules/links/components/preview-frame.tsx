@@ -117,7 +117,7 @@ const PreviewFrame = async ({ links }: PreviewFrameProps) => {
                 <div className="bg-white rounded-lg border border-gray-200 p-2 mb-3">
                   <div className="flex items-center justify-center gap-2 text-xs text-gray-600">
                     <Star size={12} />
-                    <span>Join {displayName.toLowerCase()} on TreeBio</span>
+                    <span>Join {displayName.toLowerCase()} on Lynkr</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-center gap-2 text-xs text-gray-500">

@@ -4,6 +4,7 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 const isPublicRoute = createRouteMatcher([
   '/sign-in(.*)', 
   '/sign-up(.*)',
+  '/tools(.*)', // Public tools pages
   '/([^/]+)' // This matches any single segment path like /username
 ])
 

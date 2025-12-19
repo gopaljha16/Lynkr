@@ -11,16 +11,18 @@ import { ModeToggle } from "@/components/theme-toggle";
 export const Navbar = () => {
   return (
     <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-5xl px-4">
-      <div className="bg-white/10 dark:bg-black/10 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl shadow-lg shadow-black/5 dark:shadow-black/20 transition-all duration-200 hover:bg-white/15 dark:hover:bg-black/15">
-        <div className="px-6 py-4 flex justify-between items-center">
-          <Link href={"/"} className="flex items-center gap-2">
-            <Image src={logo} alt="Lynkr" width={50} height={50} />
-            <span className="font-bold text-2xl tracking-widest text-[#3b04a9]">
+      <div className="bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl border border-gray-200/50 dark:border-zinc-800/50 rounded-2xl shadow-lg shadow-gray-200/20 dark:shadow-black/30 transition-all duration-300 hover:shadow-xl hover:shadow-gray-200/30 dark:hover:shadow-black/40">
+        <div className="px-6 py-3 flex justify-between items-center">
+          <Link href={"/"} className="flex items-center gap-3 group">
+            <div className="relative">
+              <Image src={logo} alt="Lynkr" width={42} height={42} className="transition-transform duration-300 group-hover:scale-110" />
+            </div>
+            <span className="font-bold text-2xl tracking-tight bg-gradient-to-r from-[#460db8] to-[#7c3aed] bg-clip-text text-transparent">
               Lynkr
             </span>
           </Link>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <ModeToggle />
             <SignedIn>
                <UserControl/>
@@ -31,7 +33,7 @@ export const Navbar = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-sm font-medium hover:bg-white/20 dark:hover:bg-white/10"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/80 dark:hover:bg-zinc-800/80 rounded-xl transition-all duration-200"
                   >
                     Sign In
                   </Button>
@@ -39,9 +41,9 @@ export const Navbar = () => {
                 <SignUpButton>
                   <Button
                     size="sm"
-                    className="text-sm font-medium bg-[#41B313] hover:bg-[#369611] text-white"
+                    className="text-sm font-medium bg-gradient-to-r from-[#460db8] to-[#7c3aed] hover:from-[#3a0a9e] hover:to-[#6d28d9] text-white rounded-xl shadow-md shadow-purple-500/20 hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
                   >
-                    Sign Up
+                    Get Started
                   </Button>
                 </SignUpButton>
               </div>

@@ -71,7 +71,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <Link href={"/"} className="flex gap-2 items-center justify-start p-4 ">
-          <Image src={logo} alt="TreeBio Logo" width={32} height={32} />
+          <Image src={logo} alt="Lynkr Logo" width={32} height={32} />
           <h1 className="text-lg font-bold text-zinc-700 dark:text-zinc-100">
             Lynkr Admin
           </h1>
